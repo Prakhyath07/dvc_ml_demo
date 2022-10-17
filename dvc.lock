@@ -4,8 +4,8 @@ stages:
     cmd: python src/stage_01_load_save.py --c config/config.yaml
     deps:
     - path: config/config.yaml
-      md5: ef669e655f6d50f4a0730998f0fd9b8b
-      size: 298
+      md5: 1edb07d9bb5544db9f27764fb445b0cc
+      size: 357
     - path: src/stage_01_load_save.py
       md5: df32642d0bb08b80e4329eb11bc5fb20
       size: 1009
@@ -16,12 +16,6 @@ stages:
     - path: artifacts/raw_local_dir/data.csv
       md5: 7d814a1bda02145efe703f4e1c01847a
       size: 93599
-  always_run:
-    cmd: python src/always_run.py
-    outs:
-    - path: alwayjs.txt
-      md5: 6048c967629432e241ce9a071049434f
-      size: 10
   stage_02_split_data:
     cmd: python src/stage_02_split_data.py --c config/config.yaml --p params.yaml
     deps:
@@ -29,8 +23,8 @@ stages:
       md5: 7d814a1bda02145efe703f4e1c01847a
       size: 93599
     - path: config/config.yaml
-      md5: ef669e655f6d50f4a0730998f0fd9b8b
-      size: 298
+      md5: 1edb07d9bb5544db9f27764fb445b0cc
+      size: 357
     - path: src/stage_02_split_data.py
       md5: de384a6fc1130d0dcc6e5164b55f5fd2
       size: 1827
@@ -48,3 +42,27 @@ stages:
     - path: artifacts/split_data_dir/train.csv
       md5: e683c1d146b604dc7ac3a46cfcc079c4
       size: 65483
+  stage_03_train:
+    cmd: python src/stage_03_train.py --c config/config.yaml --p params.yaml
+    deps:
+    - path: artifacts/split_data_dir/train.csv
+      md5: e683c1d146b604dc7ac3a46cfcc079c4
+      size: 65483
+    - path: config/config.yaml
+      md5: 1edb07d9bb5544db9f27764fb445b0cc
+      size: 357
+    - path: src/stage_03_train.py
+      md5: abe98565cdca0adb14eff33b838f6226
+      size: 1804
+    - path: src/utils/all_utils.py
+      md5: 54f4d29b46aed8045d2fe83fe408e10d
+      size: 487
+    params:
+      params.yaml:
+        base.random_state: 43
+        model_params.ElasticNet.alpha: 0.5
+        model_params.ElasticNet.l1_ratio: 0.6
+    outs:
+    - path: artifacts/model_dir/ElasticNet.model
+      md5: d03c57ca6dd6321adfcaa0edfed8f7f7
+      size: 1369
