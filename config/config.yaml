@@ -11,5 +11,8 @@ artifacts:
 
   model_dir : model_dir
   model_name: ElasticNet.model
+
+  report_dir: report_dir
+  report_name : report.json
   
 

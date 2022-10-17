@@ -44,9 +44,6 @@ def train(config_path,params_path):
     joblib.dump(model,model_name_path)
 
 
-    return model
-
-
     
 
 if __name__ == "__main__":
