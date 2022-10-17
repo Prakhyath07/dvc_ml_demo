@@ -2,7 +2,7 @@ from src.utils.all_utils import read_yaml
 import argparse
 import pandas as pd
 import os
-from src.utils.all_utils import create_directory
+from src.utils.all_utils import create_directory, save_local_df
 
 def get_data(config_path):
     config = read_yaml(config_path)
@@ -20,7 +20,7 @@ def get_data(config_path):
 
     create_directory([raw_local_dir_path])
 
-    df.to_csv(raw_local_file_path,sep=",", index=False)
+    save_local_df(data=df,data_path= raw_local_file_path)
 
 if __name__ == "__main__":
     args = argparse.ArgumentParser()

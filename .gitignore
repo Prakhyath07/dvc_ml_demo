@@ -130,3 +130,5 @@ dmypy.json
 .pyre/
 
 artifacts/
+/always.txt
+/alwayjs.txt
